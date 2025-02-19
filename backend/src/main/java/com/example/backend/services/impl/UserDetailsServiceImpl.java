@@ -1,15 +1,31 @@
 package com.example.backend.services.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import com.example.backend.exceptions.ResourceNotFoundException;
+import com.example.backend.models.user.UserModel;
+import com.example.backend.models.user.UserPrincipal;
+import com.example.backend.repositories.UserRepository;
+
+@Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
+    @Autowired
+    UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+        UserModel user = userRepository.findByUsername(username);
+        if (user == null) {
+            throw new ResourceNotFoundException("User with username: " + username + " does not exist.");
+        }
+
+        return new UserPrincipal(user);
+
     }
-    
+
 }
