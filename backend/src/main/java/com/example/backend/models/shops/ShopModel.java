@@ -1,41 +1,34 @@
-package com.example.backend.models.user;
+package com.example.backend.models.shops;
 
 import java.util.UUID;
+
 import com.example.backend.models.franchise.FranchiseModel;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
+@Entity(name="shops")
 @Builder
-@Entity(name="users")
-public class UserModel {
+public class ShopModel {
     
     @GeneratedValue
     @Id
     public UUID id;
 
-    public String username;
-    public String password;
-
-    @Builder.Default
-    @Enumerated(EnumType.STRING)
-    public UserRoles role = UserRoles.OWNER;
+    public String shopName;
+    public String shopLocation;
 
     @ManyToOne
-    public FranchiseModel worker;
-
-    @OneToOne(mappedBy = "owner")
+    @JoinColumn(name = "franchise_id")
     public FranchiseModel franchise;
-
 }
