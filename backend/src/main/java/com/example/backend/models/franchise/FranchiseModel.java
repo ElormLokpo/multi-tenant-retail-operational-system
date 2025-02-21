@@ -6,6 +6,7 @@ import java.util.UUID;
 import com.example.backend.models.shops.ShopModel;
 import com.example.backend.models.user.UserModel;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -35,10 +36,10 @@ public class FranchiseModel {
     public UserModel owner;
 
     @Builder.Default
-    
+    @OneToMany(mappedBy = "franchise", fetch = FetchType.LAZY, orphanRemoval = true)
     public Collection<UserModel> workers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "franchise")
+    @OneToMany(mappedBy = "franchise", fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     public Collection<ShopModel> shops = new ArrayList<>();
 }
