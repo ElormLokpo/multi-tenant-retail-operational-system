@@ -1,11 +1,10 @@
-package com.example.backend.models.user;
+package com.example.backend.models.inventory;
 
 import java.util.UUID;
-import com.example.backend.models.franchise.FranchiseModel;
+
 import com.example.backend.models.shops.ShopModel;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -16,29 +15,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-@Entity(name = "users")
-public class UserModel {
+@Entity(name = "inventory")
+public class InventoryModel {
 
     @GeneratedValue
     @Id
     public UUID id;
-
-    public String username;
-    public String password;
+    public UUID productId;
+    public String productName;
 
     @Builder.Default
-    @Enumerated(EnumType.STRING)
-    public UserRoles role = UserRoles.OWNER;
+    public Integer qtyInStock = 0;
 
-    @ManyToOne
-    @JoinColumn(name = "franchise_id")
-    public FranchiseModel franchise;
+    @Builder.Default
+    public Integer restockLevel = 10;
 
     @ManyToOne
     @JoinColumn(name = "shop_id")
     public ShopModel shop;
-
 }
