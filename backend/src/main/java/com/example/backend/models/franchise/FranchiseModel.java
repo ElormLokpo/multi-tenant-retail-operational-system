@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.UUID;
 import com.example.backend.models.shops.ShopModel;
 import com.example.backend.models.user.UserModel;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -35,10 +37,13 @@ public class FranchiseModel {
     @JoinColumn(name = "owner_id", unique = true, nullable = false)
     public UserModel owner;
 
+
+    @JsonIgnore
     @Builder.Default
     @OneToMany(mappedBy = "franchise", fetch = FetchType.LAZY, orphanRemoval = true)
     public Collection<UserModel> workers = new ArrayList<>();
 
+    @JsonIgnore
     @OneToMany(mappedBy = "franchise", fetch = FetchType.LAZY, orphanRemoval = true)
     @Builder.Default
     public Collection<ShopModel> shops = new ArrayList<>();
