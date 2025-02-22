@@ -1,6 +1,6 @@
 package com.example.backend.dto.auth;
 
-import com.example.backend.dto.ResponseDto;
+import com.example.backend.dto.response.ResponseDto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

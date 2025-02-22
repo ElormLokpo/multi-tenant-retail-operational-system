@@ -8,11 +8,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.example.backend.models.franchise.FranchiseModel;
+import com.example.backend.models.shops.ShopModel;
 
 @Repository
-public interface FranchiseRepository extends JpaRepository<FranchiseModel, UUID> {
-    @Query("SELECT f from franchise f WHERE f.owner = :ownerId")
-    Page<FranchiseModel> findAllFranchiseByUser(UUID ownerId, Pageable pageable);
-
+public interface ShopRepository extends JpaRepository<ShopModel, UUID> {
+    @Query("SELECT s from shops s WHERE s.franchise.id = :franchiseId")
+    Page<ShopModel> findShopsByFranchise(UUID id, Pageable pageable);
 }
