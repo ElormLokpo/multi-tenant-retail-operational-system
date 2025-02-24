@@ -5,10 +5,14 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.UUID;
 import com.example.backend.models.product.CurrencyEnum;
+import com.example.backend.models.shops.ShopModel;
+
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +40,9 @@ public class SalesModel {
 
     @Builder.Default
     public Date timestamp = new Date();
+
+    @ManyToOne
+    @JoinColumn(name="shop_id")
+    public ShopModel shop;
 
 }

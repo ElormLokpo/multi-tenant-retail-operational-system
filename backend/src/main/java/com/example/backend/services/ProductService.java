@@ -3,7 +3,6 @@ package com.example.backend.services;
 import java.util.Collection;
 import java.util.UUID;
 import java.util.stream.Collectors;
-
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
