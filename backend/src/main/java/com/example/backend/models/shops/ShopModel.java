@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.UUID;
 import com.example.backend.models.franchise.FranchiseModel;
 import com.example.backend.models.inventory.InventoryModel;
+import com.example.backend.models.sales.SalesModel;
 import com.example.backend.models.user.UserModel;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -47,4 +48,9 @@ public class ShopModel {
     @Builder.Default
     @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY, orphanRemoval = true)
     public Collection<InventoryModel> inventory = new ArrayList<>();
+
+    @JsonIgnore
+    @Builder.Default
+    @OneToMany(mappedBy = "shop", fetch = FetchType.LAZY, orphanRemoval = true)
+    public Collection<SalesModel> sales = new ArrayList<>();
 }
