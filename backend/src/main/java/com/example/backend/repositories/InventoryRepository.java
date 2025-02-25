@@ -1,5 +1,6 @@
 package com.example.backend.repositories;
 
+import java.util.Collection;
 import java.util.UUID;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,4 +13,8 @@ import com.example.backend.models.inventory.InventoryModel;
 public interface InventoryRepository extends JpaRepository<InventoryModel, UUID> {
     @Query("SELECT i FROM inventory i WHERE i.shop.id = :shopId")
     Page<InventoryModel> findInventoryByShop(UUID shopId, Pageable pageable);
+
+    @Query("SELECT i FROM inventory i WHERE i.shop.id = :shopId")
+    Collection<InventoryModel> findInventoryByShopN(UUID shopId);
+
 }
