@@ -1,11 +1,13 @@
 package com.example.backend.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 import com.example.backend.dto.sales.InitSalesDto;
 import com.example.backend.exceptions.ResourceNotFoundException;
+import com.example.backend.models.inventory.InventoryModel;
 import com.example.backend.models.product.ProductModel;
 import com.example.backend.models.sales.SaleItem;
 import com.example.backend.models.shops.ShopModel;
@@ -35,21 +37,21 @@ public class SalesService {
         ShopModel shop = shopRepository.findById(shopId)
                 .orElseThrow(() -> new ResourceNotFoundException("Shop with id:" + shopId + "not found"));
 
+        Collection<InventoryModel> allInventory = inventoryRepository.findInventoryByShopN(shopId);
+
         Double totalCostInc = 0d;
 
         saleRequest.setShop(shop);
 
         List<SaleItem> saleItemsConv = new ArrayList<>(saleRequest.getSaleItems());
 
-        for (int i = 0; i < saleItemsConv.size(); i++) {
-            SaleItem saleItem = saleItemsConv.get(i);
+        for (SaleItem saleItem : saleItemsConv) {
+            // Implement checks
 
-            // check if inventory of product exists for shop
+            // Checking if sale item(product) exists in inventory
 
-            ProductModel productDetails = productRepository.findById(saleItem.getProductId()).orElse(null);
-            //handle error if at least one proudct is null(product not found)
-            
-
+            InventoryModel productFoundInventory = allInventory.stream().filter(inventory -> inventory.productId
+                    .equals(saleItem.getProductId())).findFirst().orElse(null);
         }
 
         // Loop throw sale items
