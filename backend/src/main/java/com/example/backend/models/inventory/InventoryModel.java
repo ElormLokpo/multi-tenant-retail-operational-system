@@ -1,9 +1,7 @@
 package com.example.backend.models.inventory;
 
 import java.util.UUID;
-
 import com.example.backend.models.shops.ShopModel;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
