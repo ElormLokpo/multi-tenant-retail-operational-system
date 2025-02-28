@@ -58,14 +58,14 @@ public class FranchiseService implements FranchiseDao {
         }
 
         @Override
-        public GetResponseDto getFranchiseByUser(UUID id, int pageSize, int pageNo, String sortBy,
+        public GetResponseDto getFranchiseByUser(UUID ownerId, int pageSize, int pageNo, String sortBy,
                         String sortDir) {
 
                 Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                                 : Sort.by(sortBy).descending();
 
                 Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
-                Page<FranchiseModel> franchisePage = franchiseRepository.findAllFranchiseByUser(id, pageable);
+                Page<FranchiseModel> franchisePage = franchiseRepository.findAllFranchiseByUser(ownerId, pageable);
 
                 Collection<FranchiseModel> pageContent = franchisePage.getContent();
 
