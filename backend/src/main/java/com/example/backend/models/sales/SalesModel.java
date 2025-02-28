@@ -33,7 +33,7 @@ public class SalesModel {
     public Collection<SaleItem> saleItems = new ArrayList<>();
 
     @Builder.Default
-    public CurrencyEnum currencyEnum = CurrencyEnum.GHS;
+    public CurrencyEnum currency = CurrencyEnum.GHS;
 
     @Builder.Default
     public Double totalPrice = 0.0;

@@ -12,7 +12,7 @@ import lombok.Data;
 public class InitSalesDto {
  
     public Collection<SaleItem> saleItems;
-    public CurrencyEnum currencyEnum;
+    public CurrencyEnum currency;
     ShopModel shop;
 
 }
