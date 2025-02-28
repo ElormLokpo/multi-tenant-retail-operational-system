@@ -8,7 +8,7 @@ import com.example.backend.dto.response.GetResponseDto;
 public interface FranchiseDao {
     public GetResponseDto getAllFranchise(int pageSize, int pageNo, String sortBy, String sortDir);
 
-    public GetResponseDto getFranchiseByUser(UUID id, int pageSize, int pageNo, String sortBy, String sortDir);
+    public GetResponseDto getFranchiseByUser(UUID ownerId, int pageSize, int pageNo, String sortBy, String sortDir);
 
     public GetFranchiseDto getFranchise(UUID id);
 
