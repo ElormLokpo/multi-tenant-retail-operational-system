@@ -10,6 +10,6 @@ import com.example.backend.models.user.UserModel;
 
 @Repository
 public interface UserRepository extends JpaRepository<UserModel, UUID> {
-    @Query("SELECT u from users u WHERE u.username= :username")
+    @Query("SELECT u from users u WHERE u.username = :username")
     UserModel findByUsername(String username);
 }

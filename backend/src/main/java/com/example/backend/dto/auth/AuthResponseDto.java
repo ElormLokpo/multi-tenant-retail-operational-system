@@ -14,4 +14,5 @@ import lombok.experimental.SuperBuilder;
 public class AuthResponseDto extends ResponseDto {
     private String accessToken;
     public UserResponseDto data;
+
 }

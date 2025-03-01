@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.example.backend.dao.AuthDao;
@@ -26,6 +27,8 @@ public class AuthService implements AuthDao {
     @Autowired
     JwtService jwtService;
 
+    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(12);
+
     public AuthService(UserRepository _userRepository) {
         this.userRepository = _userRepository;
     }
@@ -40,6 +43,9 @@ public class AuthService implements AuthDao {
         if (userFound != null) {
             throw new AuthException("User with username: " + request.getUsername() + " already exists");
         }
+
+        request.setPassword(bCryptPasswordEncoder.encode(request.getPassword()));
+
         UserModel userCreated = userRepository.save(AuthMapper.INSTANCE.userDtoToModel(request));
 
         return AuthResponseDto.builder()
@@ -57,23 +63,26 @@ public class AuthService implements AuthDao {
         }
 
         UserModel userFound = userRepository.findByUsername(request.getUsername());
-        if (userFound != null) {
-            throw new AuthException("User with username: " + request.getUsername() + " does NOT exist");
+        if (userFound == null) {
+        throw new AuthException("User with username: " + request.getUsername() + "does NOT exist");
         }
 
         Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
+        .authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(),
+        request.getPassword()));
 
         if (authentication.isAuthenticated() == false) {
-            throw new AuthException("Incorrect password.");
+        throw new AuthException("Incorrect password.");
         }
 
         return AuthResponseDto.builder()
-                .success(true)
-                .message("User login successful.")
-                .data(AuthMapper.INSTANCE.userModelToDto(userFound))
-                .accessToken(jwtService.generateToken(request.getUsername()))
-                .build();
+        .success(true)
+        .message("User login successful.")
+        .data(AuthMapper.INSTANCE.userModelToDto(userFound))
+        .accessToken(jwtService.generateToken(request.getUsername()))
+        .build();
+
+   
     }
 
 }

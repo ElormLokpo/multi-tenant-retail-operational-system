@@ -92,9 +92,9 @@ public class FranchiseService implements FranchiseDao {
         }
 
         @Override
-        public GetFranchiseDto createFranchise(CreateFranchiseDto franchise) {
+        public GetFranchiseDto createFranchise(UUID ownerId, CreateFranchiseDto franchise) {
                 // Try getting the user id or username from the token
-                UserModel userModel = userRepository.findById(franchise.getOwner().id)
+                UserModel userModel = userRepository.findById(ownerId)
                                 .orElseThrow(() -> new ResourceNotFoundException(
                                                 "Username with id:" + franchise.getOwner().id + "not found"));
 
