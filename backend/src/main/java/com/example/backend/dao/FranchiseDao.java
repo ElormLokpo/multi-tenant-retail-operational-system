@@ -12,7 +12,7 @@ public interface FranchiseDao {
 
     public GetFranchiseDto getFranchise(UUID id);
 
-    public GetFranchiseDto createFranchise(CreateFranchiseDto franchise);
+    public GetFranchiseDto createFranchise(UUID ownerId, CreateFranchiseDto franchise);
 
     public GetFranchiseDto deleteFranchise(UUID id);
 

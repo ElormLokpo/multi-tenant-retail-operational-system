@@ -61,12 +61,14 @@ public class FranchiseController {
                 .build());
     }
 
-    @PostMapping("create")
-    public ResponseEntity<ResponseDto> createFranchise(@RequestBody CreateFranchiseDto franchise) {
+    @PostMapping("create/{ownerId}")
+    public ResponseEntity<ResponseDto> createFranchise(
+            @PathVariable UUID ownerId,
+            @RequestBody CreateFranchiseDto franchise) {
         return ResponseEntity.ok(ResponseDto.builder()
                 .success(true)
                 .message("Franchise created successfully")
-                .data(franchiseService.createFranchise(franchise))
+                .data(franchiseService.createFranchise(ownerId, franchise))
                 .build());
     }
 
