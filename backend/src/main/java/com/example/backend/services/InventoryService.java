@@ -66,10 +66,10 @@ public class InventoryService implements InventoryDao {
     @Override
     public GetInventoryDto createInventory(UUID shopId, CreateInventoryDto inventory) {
         ShopModel shopModel = shopRepository.findById(shopId)
-                .orElseThrow(() -> new ResourceNotFoundException("Shop with id:" + shopId + " not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Shop with id:" + shopId + " not found!"));
 
         ProductModel productModel = productRepository.findById(inventory.productId)
-        .orElseThrow(() -> new ResourceNotFoundException("Product with id:" + inventory.productId + " not found."));;
+        .orElseThrow(() -> new ResourceNotFoundException("Product with id:" + inventory.productId + " not found!"));;
 
         inventory.setShop(shopModel);
         inventory.setProductName(productModel.getProductName());
