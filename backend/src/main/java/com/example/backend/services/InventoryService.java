@@ -60,7 +60,7 @@ public class InventoryService implements InventoryDao {
     @Override
     public GetInventoryDto getInventory(UUID id) {
         return InventoryMapper.INSTANCE.inventoryToDto(inventoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Inventory with id:" + id + " not found.")));
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory with id:" + id + " not found!")));
     }
 
     @Override
@@ -82,7 +82,7 @@ public class InventoryService implements InventoryDao {
     @Override
     public GetInventoryDto deleteInventory(UUID id) {
     InventoryModel inventory = inventoryRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Inventory with id:" + id + " not found."));
+                .orElseThrow(() -> new ResourceNotFoundException("Inventory with id:" + id + " not found!"));
 
         inventoryRepository.deleteById(id);
 
