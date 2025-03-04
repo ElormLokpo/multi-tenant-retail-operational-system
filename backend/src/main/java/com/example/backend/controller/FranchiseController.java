@@ -30,10 +30,10 @@ public class FranchiseController {
 
     @GetMapping
     public ResponseEntity<GetResponseDto> getAllFranchise(
-            @RequestParam("pageNo") int pageNo,
-            @RequestParam("pageSize") int pageSize,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("sortDir") String sortDir
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value="pageSize", defaultValue = "30", required = false ) int pageSize,
+            @RequestParam(value="sortBy", defaultValue = "franchiseName", required = false) String sortBy,
+            @RequestParam(value="sortDir", defaultValue = "asc", required = false) String sortDir
 
     ) {
         return ResponseEntity.ok(franchiseService.getAllFranchise(pageSize, pageNo, sortBy, sortDir));
@@ -42,10 +42,10 @@ public class FranchiseController {
     @GetMapping("owner/{ownerId}")
     public ResponseEntity<GetResponseDto> getAllFranchiseByUser(
             @PathVariable UUID ownerId,
-            @RequestParam("pageNo") int pageNo,
-            @RequestParam("pageSize") int pageSize,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("sortDir") String sortDir
+            @RequestParam(value = "pageNo", defaultValue = "0", required = false) int pageNo,
+            @RequestParam(value="pageSize", defaultValue = "30", required = false ) int pageSize,
+            @RequestParam(value="sortBy", defaultValue = "franchiseName", required = false) String sortBy,
+            @RequestParam(value="sortDir", defaultValue = "asc", required = false) String sortDir
 
     ) {
         return ResponseEntity.ok(franchiseService.getFranchiseByUser(ownerId, pageSize, pageNo, sortBy, sortDir));
