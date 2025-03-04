@@ -31,10 +31,10 @@ public class InventoryController {
     @GetMapping("shop/{shopId}")
     public ResponseEntity<GetResponseDto> getAllInventoryByShop(
             @PathVariable("shopId") UUID shopId,
-            @RequestParam("pageNo") int pageNo,
-            @RequestParam("pageSize") int pageSize,
-            @RequestParam("sortBy") String sortBy,
-            @RequestParam("sortDir") String sortDir
+            @RequestParam(value="pageNo", defaultValue = "0", required=false) int pageNo,
+            @RequestParam(value="pageSize", defaultValue = "30", required=false) int pageSize,
+            @RequestParam(value="sortBy", defaultValue = "productName", required=false) String sortBy,
+            @RequestParam(value="sortDir", defaultValue = "asc", required=false) String sortDir
 
     ) {
         return ResponseEntity.ok(inventoryService.getAllInventoryByShop(shopId, pageSize, pageNo, sortBy, sortDir));
